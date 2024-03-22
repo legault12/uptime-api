@@ -1,10 +1,13 @@
 const admin = require('firebase-admin');
 
 if (!admin.apps.length) {
-  const serviceAccount = require('../path-to-your-firebase-adminsdk.json');
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://your-database-url.firebaseio.com',
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    }),
+    databaseURL: process.env.FIREBASE_DATABASE_URL
   });
 }
 
