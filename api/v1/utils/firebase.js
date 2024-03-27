@@ -1,52 +1,63 @@
-const admin = require('firebase-admin');
-const db = admin.firestore();
-
-const getRecords = async (collection) => {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteRecord = exports.updateRecord = exports.createRecord = exports.getRecords = void 0;
+const firebase_admin_1 = __importDefault(require("firebase-admin"));
+const db = firebase_admin_1.default.firestore();
+const getRecords = (collection) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const snapshot = await db.collection(collection).get();
-        return snapshot.docs.map(doc => ({
-            id: doc.id, ...doc.data()
-        }))
-        
-    } catch (error) {
+        const snapshot = yield db.collection(collection).get();
+        return snapshot.docs.map(doc => (Object.assign({ id: doc.id }, doc.data())));
+    }
+    catch (error) {
         console.error("Error getting records: ", error);
         throw error;
     }
-}
-
-const createRecord = async (collection, data) => {
+});
+exports.getRecords = getRecords;
+const createRecord = (collection, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const docRef = await db.collection(collection).add(data);
-        return { id: docRef.id, ...data};
-        
-    } catch (error) {
+        const docRef = yield db.collection(collection).add(data);
+        return Object.assign({ id: docRef.id }, data);
+    }
+    catch (error) {
         console.error("Error creating record: ", error);
         throw error;
     }
-}
-
-const updateRecord = async (collection, id, data) => {
+});
+exports.createRecord = createRecord;
+const updateRecord = (collection, id, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const docRef = db.collection(collection).doc(id);
-        await docRef.update(data);
-        const updatedDoc = await docRef.get();
-        return { id, ...updatedDoc.data };
-        
-    } catch (error) {
+        yield docRef.update(data);
+        const updatedDoc = yield docRef.get();
+        return Object.assign({ id }, updatedDoc.data());
+    }
+    catch (error) {
         console.error("Error updating record: ", error);
         throw error;
     }
-}
-
-const deleteRecord = async (collection, id) => {
+});
+exports.updateRecord = updateRecord;
+const deleteRecord = (collection, id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        await db.collection(collection).doc(id).delete();
+        yield db.collection(collection).doc(id).delete();
         return { id, deleted: true };
-        
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Error deleting record: ", error);
         throw error;
     }
-}
-
-module.exports = {getRecords, createRecord, updateRecord, deleteRecord};
+});
+exports.deleteRecord = deleteRecord;
