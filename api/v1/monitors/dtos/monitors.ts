@@ -6,24 +6,28 @@
 // Note: This is an initial model structure and is subject to change as the application requirements evolve.
 
 class WebsiteStatus {
-    constructor(url, isUp, outages, uptime, downtime) {
-        this.url = url;           // The URL of the website
-        this.isUp = isUp;         // Boolean indicating if the website is currently up or down
-        this.outages = outages;   // Total number of outages
-        this.uptime = uptime;     // Total uptime in some time unit (e.g., hours, minutes)
-        this.downtime = downtime; // Total downtime in the same time unit as uptime
+    url: string;
+    isUp: boolean;
+    outages: number;
+    uptime: number;
+    downtime: number;
+
+    constructor(url: string, isUp: boolean, outages: number, uptime: number, downtime: number) {
+        this.url = url;
+        this.isUp = isUp;
+        this.outages = outages;
+        this.uptime = uptime;
+        this.downtime = downtime;
     }
 
-    // Method to update status based on new data
-    updateStatus({ isUp, outages, uptime, downtime }) {
+    updateStatus({ isUp, outages, uptime, downtime }: { isUp?: boolean, outages?: number, uptime?: number, downtime?: number }): void {
         this.isUp = isUp !== undefined ? isUp : this.isUp;
         this.outages = outages !== undefined ? outages : this.outages;
         this.uptime = uptime !== undefined ? uptime : this.uptime;
         this.downtime = downtime !== undefined ? downtime : this.downtime;
     }
 
-    // Convert to a format suitable for database storage
-    toFirestore() {
+    toFirestore(): { url: string, isUp: boolean, outages: number, uptime: number, downtime: number } {
         return {
             url: this.url,
             isUp: this.isUp,
@@ -34,4 +38,4 @@ class WebsiteStatus {
     }
 }
 
-module.exports = WebsiteStatus;
+export default WebsiteStatus;
