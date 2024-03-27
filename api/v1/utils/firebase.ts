@@ -4,7 +4,7 @@ const db = admin.firestore();
 
 interface FirestoreDoc {
     id: string;
-    [key: string]: any; // Represents other properties of the document
+    [key: string]: any;
 }
 
 const getRecords = async (collection: string): Promise<FirestoreDoc[]> => {
