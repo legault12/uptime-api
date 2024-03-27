@@ -1,16 +1,10 @@
 const express = require('express')
 const router = express.Router();
-const { createRecord, getRecords, updateRecord, deleteRecord }  = require('../utils/firebase');
-const { getRecordsController } = require('../controllers/posts-controllers');
+const { getRecordsController, createRecordsController, updateRecordsController, deleteRecordsController } = require('../controllers/posts-controllers');
 
-// get posts
-router.get('/posts', async (req, res) => {
-    try {
-        const posts = await getRecords('posts');
-        res.status(200).json(posts);
-    } catch (error) {
-        res.status(500).json({error: 'YOU HAVE FAILED'})
-    }
-});
+router.get('/posts', getRecordsController);
+router.post('/posts', createRecordsController);
+router.put('/posts/:id', updateRecordsController);
+router.delete('/posts/:id', deleteRecordsController);
 
 module.exports = router;
