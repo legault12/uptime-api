@@ -31,9 +31,6 @@ The API will be used in conjunction with a React/Next.js frontend. The frontend 
 ## Future Updates
 This README will be updated as the project progresses and becomes more fleshed out. Stay tuned for more details on the features, usage instructions, and the overall architecture of the Website Uptime Monitor API.
 
-## Contact
-For more information or to contribute to this project, please reach out to [Your Name or Project Contact Information].
-
 Thank you for your interest in our Website Uptime Monitor API project!
 
 ---
