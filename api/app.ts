@@ -9,7 +9,7 @@ firebaseAdmin.initializeApp({
     databaseURL: 'https://projectdev-269523-default-rtdb.firebaseio.com'
 });
 
-import routes from './v1/routes/posts-routes';
+import routes from './v1/monitors/routes';
 
 const app = express();
 app.use(bodyParser.json());
