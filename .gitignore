@@ -131,3 +131,6 @@ dist
 
 # firebase service account JSON
 serviceaccountkey.json
+
+#potentially unwanted JS files in typescript folders
+api/**/*.js
