@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import firebaseAdmin from 'firebase-admin';
-import serviceAccount from '../serviceaccountkey.json';
+import { firebaseConfig } from './firebase_config';
 
 // Initialize Firebase Admin SDK
 firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert(serviceAccount as firebaseAdmin.ServiceAccount),
+    credential: firebaseAdmin.credential.cert(firebaseConfig  as firebaseAdmin.ServiceAccount),
     databaseURL: 'https://projectdev-269523-default-rtdb.firebaseio.com'
 });
 
